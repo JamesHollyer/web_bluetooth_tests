@@ -1,0 +1,32 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>bluetooth filter device demo</title>
+</head>
+<body>
+<div id="output">
+</div>
+<div id="connectBtn">
+  connect
+</div>
+<script>
+  let connectBtn = document.getElementById('connectBtn');
+function getFilteredDevices() {
+  console.log('nav bluetooth', navigator.bluetooth.requestDevice)
+  navigator.bluetooth.requestDevice({
+  filters: [{
+    services: ['00001016-d102-11e1-9b23-00025b00a5a5'],
+  }]
+}).then(device => {
+    console.log(device)
+  }).catch(error => {
+    console.log("error", error);
+  });
+}
+
+connectBtn.addEventListener('click', async () => {
+  getFilteredDevices();
+})
+
+</script>
+
+
+</body></html>
