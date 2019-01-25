@@ -5,17 +5,23 @@
 <body>
 <div id="output">
 </div>
-<div id="connectBtn">
-  connect
+<div id="connectUUIDBtn">
+  connect with Service UUID
+</div>
+<div id="connectNameBtn">
+  connect with Device Name
+</div>
+<div id="connectNameAndUUIDBtn">
+  connect with Device Name or service UUID
 </div>
 <script>
-  let connectBtn = document.getElementById('connectBtn');
-function getFilteredDevices() {
+  let connectUUIDBtn = document.getElementById('connectUUIDBtn');
+  let connectNameBtn = document.getElementById('connectNameBtn');
+  let connectNameAndUUIDBtn = document.getElementById('connectNameAndUUIDBtn');
+function getFilteredDevices(filters) {
   console.log('nav bluetooth', navigator.bluetooth.requestDevice)
   navigator.bluetooth.requestDevice({
-  filters: [{
-    services: ['00001016-d102-11e1-9b23-00025b00a5a5'],
-  }]
+  filters: filters
 }).then(device => {
     console.log(device)
   }).catch(error => {
@@ -23,8 +29,27 @@ function getFilteredDevices() {
   });
 }
 
-connectBtn.addEventListener('click', async () => {
-  getFilteredDevices();
+connectUUIDBtn.addEventListener('click', async () => {
+  let filters = [{
+    services: [parseInt('0xFF02')],
+  }]
+  getFilteredDevices(filters);
+})
+
+connectNameBtn.addEventListener('click', async () => {
+  let filters = [{
+    name: ['PLAYBULB Mimosa'],
+  }]
+  getFilteredDevices(filters);
+})
+
+connectNameAndUUIDBtn.addEventListener('click', async () => {
+  let filters = [{
+    name: ['PLAYBULB Mimosa'],
+  },{
+    services: [parseInt('0xFF02')],
+  }]
+  getFilteredDevices(filters);
 })
 
 </script>
