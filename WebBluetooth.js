@@ -55,7 +55,7 @@ function onButtonClick() {
   }/*, error => {console.log 'error in requestDevice'};*/)
   .then(server => {
 	  console.log('Got BT GATT server...');
-	return server.getPrimaryService(0x7fed8d43a6a0);
+	return server.getPrimaryService("0000fe03-0000-1000-8000-00805f9b34fb");
   }, error => {console.log('error in GATT connect...');})
    .then(service => {
     console.log('Getting BT GATT service ...');
