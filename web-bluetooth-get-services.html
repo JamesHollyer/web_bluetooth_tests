@@ -3,18 +3,20 @@
 <title>geolocation.getCurrentPosition demo</title>
 </head>
 <body>
-  <div id="output">
+  <div>
+    Service UUID
+    <input type="text" id="serviceUUID" />
     <div id="connect">
       connect with Device Name
     </div>
   </div>
   <script src="WebBluetooth.js"></script>
   <script>
-    console.log("here I am")
     let connectHeadphones = document.getElementById('connect');
+    let serviceUUID = document.getElementById('serviceUUID');
 
     connectHeadphones.addEventListener('click', async () => {
-      onButtonClick();
+      onButtonClick(serviceUUID.value);
     })
   </script>
 

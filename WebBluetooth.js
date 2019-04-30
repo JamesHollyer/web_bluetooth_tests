@@ -41,8 +41,12 @@ function isWebBluetoothEnabled() {
     }
   }
 
-function onButtonClick() {
+function onButtonClick(serviceUUID) {
   console.log("about to request device");
+  let primaryService = 0xFF02;
+  if(serviceUUID) {
+    primaryService = serviceUUID;
+  }
   navigator.bluetooth.requestDevice({
 	 // log('bluetooth.requestDevice...');
    // filters: [...] <- Prefer filters to save energy & show relevant devices.
@@ -50,12 +54,13 @@ function onButtonClick() {
       //optionalServices: ['device_information']})
 	  optionalServices: [0xFDD2]})
   .then(device => {
-    console.log('Got BT Device...');
+    console.log('Got BT Device...', device);
     return device.gatt.connect();
   }/*, error => {console.log 'error in requestDevice'};*/)
   .then(server => {
 	  console.log('Got BT GATT server...');
-	return server.getPrimaryService("0000fe03-0000-1000-8000-00805f9b34fb");
+    console.log('about to call get primary service with UUID:', primaryService);
+	return server.getPrimaryService(primaryService);
   }, error => {console.log('error in GATT connect...');})
    .then(service => {
     console.log('Getting BT GATT service ...');
