@@ -14,10 +14,14 @@
 <div id="connectNameAndUUIDBtn">
   connect with Device Name or service UUID
 </div>
+<div id="connectBothUUID">
+  connect to puck with service uuid 0xabcd AND 0xbcde
+</div>
 <script>
   let connectUUIDBtn = document.getElementById('connectUUIDBtn');
   let connectNameBtn = document.getElementById('connectNameBtn');
   let connectNameAndUUIDBtn = document.getElementById('connectNameAndUUIDBtn');
+  let connectBothUUID = document.getElementById('connectBothUUID');
 function getFilteredDevices(filters) {
   console.log('nav bluetooth', navigator.bluetooth.requestDevice)
   navigator.bluetooth.requestDevice({
@@ -48,6 +52,13 @@ connectNameAndUUIDBtn.addEventListener('click', async () => {
     name: ['PLAYBULB Mimosa'],
   },{
     services: [parseInt('0xFF02')],
+  }]
+  getFilteredDevices(filters);
+})
+
+connectNameAndUUIDBtn.addEventListener('click', async () => {
+  let filters = [{
+    services: [parseInt('0xABCD'), parseInt('0xBCDE')],
   }]
   getFilteredDevices(filters);
 })
